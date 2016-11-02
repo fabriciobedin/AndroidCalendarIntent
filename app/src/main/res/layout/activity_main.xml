@@ -18,5 +18,40 @@
         android:text="Chama Google Calendar"
         android:onClick="chamaGoogleCalendar"
         />
+    <Button
+        android:id="@+id/btNovoEvento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Novo Evento"
+        android:onClick="novoEvento"
+        />
+
+    <Button
+        android:id="@+id/btCalendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calendar View"
+        android:onClick="calendarView"
+        />
+
+    <Button
+        android:id="@+id/btShowDatePickerDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Date Picker Dialog"
+        android:onClick="showDatePickerDialog"
+        />
+    <Button
+        android:id="@+id/btShowDateTimePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Date and Time Picker Dialog"
+        android:onClick="showDateTimePickerDialog"
+        />
+    <TextView
+        android:id="@+id/txtViewDataTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>
