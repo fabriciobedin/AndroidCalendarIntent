@@ -11,8 +11,11 @@ import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity
 
     int year_x, month_x, day_x, hour_x, minute_x;
     static final int DIALOG_ID = 0;
+    TextView txtView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,9 @@ public class MainActivity extends AppCompatActivity
         year_x = cal.get(Calendar.YEAR);
         month_x = cal.get(Calendar.MONTH);
         day_x = cal.get(Calendar.DAY_OF_MONTH);
+
+        txtView = (TextView) findViewById(R.id.txtViewDataTime);
+
 
     }
 
@@ -138,6 +145,7 @@ public class MainActivity extends AppCompatActivity
             daysArray[i] = daysList.get(i);
         }
         datePickerDialog.setSelectableDays(daysArray);
+        datePickerDialog.setOnCancelListener(this);
         datePickerDialog.show(getFragmentManager(), "datePickerDialog");
     }
 
@@ -154,16 +162,48 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar tDefault = Calendar.getInstance();
+        tDefault.set(year_x, month_x, day_x, hour_x, minute_x);
+
+        year_x = year;
+        month_x = month;
+        day_x = dayOfMonth;
+
+        TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(
+            (TimePickerDialog.OnTimeSetListener) this,
+            tDefault.get(Calendar.HOUR_OF_DAY),
+            tDefault.get(Calendar.MINUTE),
+            true
+        );
+        timePickerDialog.setOnCancelListener(this);
+        timePickerDialog.show(getFragmentManager(), "timePickerDialog");
 
     }
 
     @Override
     public void onCancel(DialogInterface dialog) {
         year_x = month_x = day_x = hour_x = minute_x = 0;
+        txtView.setText("");
+
     }
 
     @Override
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+        if( hourOfDay < 9 || hourOfDay > 18){
+            onDateSet(null, year_x, month_x, day_x);
+            Toast.makeText(this, "Somente entre 9 e 18 horas", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        hour_x = hourOfDay;
+        minute_x = minute;
+
+        txtView.setText((day_x < 10 ? "0" + day_x : day_x)+"/"+
+                ((month_x+1) < 10 ? "0" + (month_x+1) : (month_x+1))+"/"+
+                year_x + " às " +
+                (hour_x < 10 ? "0" + hour_x : hour_x)+"h"+
+                (minute_x < 10 ? "0" + minute_x : minute_x)
+        );
 
     }
 }
