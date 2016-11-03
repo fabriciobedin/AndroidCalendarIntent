@@ -48,10 +48,32 @@
         android:text="Show Date and Time Picker Dialog"
         android:onClick="showDateTimePickerDialog"
         />
+    <Button
+        android:id="@+id/btVerEventos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver Eventos"
+        android:onClick="chamarApi"
+        />
+
+
     <TextView
         android:id="@+id/txtViewDataTime"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:id="@+id/txtVerEventos"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:verticalScrollbarPosition="defaultPosition"/>
 
 
 </LinearLayout>
